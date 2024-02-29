@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 require('../nodepop/lib/connectMongoose');
 
+
 // crear la aplicación de express
 var app = express();
 
@@ -23,8 +24,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// API routes
+app.use('/api/products', require('./routes/api/products'));
+
+
+// website routes
 app.use('/', require('./routes/index'));
-// app.use('/users', require('./routes/users'));
+app.use('/users', require('./routes/users'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
