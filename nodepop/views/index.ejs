@@ -6,6 +6,12 @@
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %>. Your friendly buying and selling app</p>
+    <p>Welcome to <%= title %>. App to buy and sell between individuals</p>
+
+    <h2>Available Products Now</h2>
+    <h3>
+      Today, <%= now.toLocaleDateString('es-ES') %> <%=
+      now.toLocaleTimeString('es-ES') %>
+    </h3>
   </body>
 </html>
