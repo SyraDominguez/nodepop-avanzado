@@ -8,7 +8,25 @@ const Products = require('../../models/Products');
 // all products
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Products.find();
+    // filters
+    const filterByName = req.query.name;
+    const filterBySale = req.query.sale;
+
+    // pagination
+    const skip = req.query.skip
+    const limit = req.query.limit
+
+    const filter = {};
+
+    if (filterByName) {
+      filter.name = filterByName;
+    }
+
+    if (filterBySale) {
+      filter.sale = filterBySale;
+    }
+
+    const products = await Products.listing(filter, skip, limit);
     res.json({ results: products });
   } catch (error) {
     next(error);

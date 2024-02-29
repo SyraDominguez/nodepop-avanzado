@@ -10,6 +10,14 @@ const productSchema = new mongoose.Schema({
   // owner:
 });
 
+// listing method
+productSchema.statics.listing = function (filter, skip, limit) {
+  const query = Products.find(filter);
+  query.skip(skip);
+  query.limit(limit);
+  return query.exec();
+};
+
 // create the model for products
 const Products = mongoose.model('Products', productSchema);
 
