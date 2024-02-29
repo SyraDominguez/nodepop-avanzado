@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const basicAuth = require('./lib/basicAuthMiddleware');
 
 require('../nodepop/lib/connectMongoose');
 
@@ -25,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // API routes
-app.use('/api/products', require('./routes/api/products'));
+app.use('/api/products', basicAuth, require('./routes/api/products'));
 
 
 // website routes

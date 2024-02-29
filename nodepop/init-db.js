@@ -1,6 +1,5 @@
 'use strict';
 
-// const readline = require('node: readline');
 const readline = require('node:readline');
 const connection = require('./lib/connectMongoose.js');
 const Products = require('./models/Products');
@@ -12,7 +11,7 @@ async function main() {
   await new Promise((resolve) => connection.once('open', resolve));
 
   const erase = await question('Are you sure you want to DELETE all PRODUCTS FROM THIS DATABASE? (NO): ');
-  console.log('All products are still intact.');
+  console.log("Don't Worry. All products are still intact.");
 
 
   if (!erase) {

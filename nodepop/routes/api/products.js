@@ -3,11 +3,14 @@ var router = express.Router();
 const Products = require('../../models/Products');
 
 
+
+
 /* GET products list */
 
 // all products
 router.get('/', async (req, res, next) => {
   try {
+
     // filters
     const filterByName = req.query.name;
     const filterBySale = req.query.sale;
