@@ -16,6 +16,12 @@ router.get('/', async (req, res, next) => {
     const skip = req.query.skip
     const limit = req.query.limit
 
+    //sorting
+    const sort = req.query.sort;
+
+    // fields selection
+    const fields = req.query.fields;
+
     const filter = {};
 
     if (filterByName) {
@@ -26,7 +32,7 @@ router.get('/', async (req, res, next) => {
       filter.sale = filterBySale;
     }
 
-    const products = await Products.listing(filter, skip, limit);
+    const products = await Products.listing(filter, skip, limit, sort, fields);
     res.json({ results: products });
   } catch (error) {
     next(error);

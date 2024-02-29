@@ -2,19 +2,22 @@ const mongoose = require('mongoose');
 
 // define products schema
 const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  sale: { type: Boolean, required: true },
+  name: { type: String, required: true, index: true },
+  sale: { type: Boolean, required: true, index: true },
   price: { type: Number, required: true },
-  photo: String,
+  photo: { type: String, index: true },
   tags: [String]
   // owner:
 });
 
 // listing method
-productSchema.statics.listing = function (filter, skip, limit) {
+productSchema.statics.listing = function (filter, skip, limit, sort, fields) {
   const query = Products.find(filter);
   query.skip(skip);
   query.limit(limit);
+  query.sort(sort);
+  query.select(fields);
+
   return query.exec();
 };
 
