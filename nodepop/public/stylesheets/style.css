@@ -1,8 +1,39 @@
 body {
+  background-color: #baf6cf;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-container {
+  width: 48%;
+
+}
+
+.product-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+  grid-gap: 15px;
+}
+
+.product-columns ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 15px;
+}
+
+.product-columns li {
+  border: 1px solid #ccc;
+  padding: 10px;
 }

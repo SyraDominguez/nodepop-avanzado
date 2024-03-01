@@ -14,6 +14,7 @@ router.get('/', async (req, res, next) => {
     // filters
     const filterByName = req.query.name;
     const filterBySale = req.query.sale;
+    const filterByTags = req.query.tags;
 
     // pagination
     const skip = req.query.skip
@@ -35,7 +36,11 @@ router.get('/', async (req, res, next) => {
       filter.sale = filterBySale;
     }
 
-    const products = await Products.listing(filter, skip, limit, sort, fields);
+    if (filterByTags) {
+      filter.tags = filterByTags;
+    }
+
+    const products = await Products.listing(filter, skip, limit, sort, fields, tags);
     res.json({ results: products });
   } catch (error) {
     next(error);

@@ -26,12 +26,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// website routes
-app.get('/', async (req, res, next) => {
+app.use(async (req, res, next) => {
   try {
-    const now = new Date(); // Definir la variable now
+    const Products = require('./models/Products');
     const products = await Products.find();
-    res.render('index', { title: 'NodePop', products: products, now: now });  // Pasar la variable now a la vista
+    res.locals.products = products;
+    next();
   } catch (error) {
     next(error);
   }

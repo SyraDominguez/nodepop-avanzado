@@ -4,6 +4,7 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
+
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %>. App to buy and sell between individuals</p>
@@ -13,31 +14,118 @@
       Today, <%= now.toLocaleDateString('es-ES') %> <%=
       now.toLocaleTimeString('es-ES') %>
     </h3>
+    <hr />
 
-    <ul>
-      <% products.forEach(product => { %>
-      <li>
-        <h4><%= product.name %></h4>
-        <% if (product.sale) { %>
-        <p><strong>Lo Vendo</strong></p>
-        <% } else { %>
-        <p><strong>Lo Compro</strong></p>
-        <% } %>
-        <p><strong>Price:</strong> <%= product.price %> €</p>
-        <p>
-          <strong>Foto:</strong>
-          <br />
-          <img
-            src="/images/<%= product.photo %>"
-            alt="<%= product.name %>"
-            width="100"
-            height="100"
-          />
-        </p>
-        <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
-        <hr>
-      </li />
-      <% }); %>
-    </ul>
+    <!-- Create New Product -->
+    <div class="container">
+      <div class="form-container">
+        <h2>You buy or sell? Publish your product Now</h2>
+        <form action="/api/products" method="POST">
+          <label for="name">Name:</label><br />
+          <input type="text" id="name" name="name" required /><br />
+
+          <label for="price">Price:</label><br />
+          <input type="number" id="price" name="price" required /><br />
+
+          <label for="sale">¿Buy o Sale?</label><br />
+          <select id="sale" name="sale">
+            <option value="true">Sale</option>
+            <option value="false">Buy</option></select
+          ><br />
+
+          <label for="photo">Photo:</label><br />
+          <input
+            type="file"
+            id="photo"
+            name="photo"
+            accept="image/*"
+            required
+          /><br />
+
+          <label>Tags:</label><br />
+          <input type="checkbox" id="work" name="tags" value="work" />
+          <label for="work">Work</label><br />
+          <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
+          <label for="lifestyle">Lifestyle</label><br />
+          <input type="checkbox" id="mobile" name="tags" value="mobile" />
+          <label for="mobile">Mobile</label><br />
+          <input type="checkbox" id="motor" name="tags" value="motor" />
+          <label for="motor">Motor</label><br />
+
+          <input type="submit" value="Crear Producto" />
+        </form>
+      </div>
+
+      <!-- Delete Product -->
+      <div class="form-container">
+        <h2>Delete article</h2>
+        <form action="/api/products" method="DELETE">
+          <label for="productToDelete">Select a product to delete:</label><br />
+          <select id="productToDelete" name="productToDelete">
+            <% products.forEach(product => { %>
+            <option value="<%= product._id %>"><%= product.name %></option>
+            <% }); %></select
+          ><br />
+          <input type="submit" value="Borrar Producto" />
+        </form>
+      </div>
+    </div>
+    <hr />
+
+    <!-- Filter by Tags -->
+    <form action="/api/products" method="GET">
+      <label><strong>Filter by Tags:</strong></label
+      ><br />
+      <input type="checkbox" name="tag" value="work" />Work
+      <input type="checkbox" name="tag" value="lifestyle" />Lifestyle
+      <input type="checkbox" name="tag" value="mobile" />Mobile
+      <input type="checkbox" name="tag" value="motor" />Motor
+      <input type="submit" value="Filter" />
+    </form>
+    <hr />
+
+    <!-- Filter by Price -->
+    <form action="/api/products" method="GET">
+      <label><strong>Filter by Price:</strong></label
+      ><br />
+      Min: <input type="number" name="minPrice" /> Max:
+      <input type="number" name="maxPrice" />
+      <input type="submit" value="Filter" />
+    </form>
+
+    <hr />
+    <hr />
+
+    <!-- Product List -->
+    <h2>Product List</h2>
+    <div class="product-columns">
+      <ul>
+        <% products.forEach(product => { %>
+        <li>
+          <h4><%= product.name %></h4>
+          <% if (product.sale) { %>
+          <p><strong>Lo Vendo</strong></p>
+          <% } else { %>
+          <p><strong>Lo Compro</strong></p>
+          <% } %>
+          <p><strong>Price:</strong> <%= product.price %> €</p>
+          <p>
+            <strong>Foto:</strong><br />
+            <img
+              src="/images/<%= product.photo %>"
+              alt="<%= product.name %>"
+              width="100"
+              height="100"
+            />
+          </p>
+          <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
+          <hr />
+          <button>
+            <% if (product.sale) { %> Comprar <% } else { %> Vender <% } %>
+          </button>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
   </body>
 </html>
