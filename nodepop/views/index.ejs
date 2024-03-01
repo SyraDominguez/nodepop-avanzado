@@ -13,5 +13,31 @@
       Today, <%= now.toLocaleDateString('es-ES') %> <%=
       now.toLocaleTimeString('es-ES') %>
     </h3>
+
+    <ul>
+      <% products.forEach(product => { %>
+      <li>
+        <h4><%= product.name %></h4>
+        <% if (product.sale) { %>
+        <p><strong>Lo Vendo</strong></p>
+        <% } else { %>
+        <p><strong>Lo Compro</strong></p>
+        <% } %>
+        <p><strong>Price:</strong> <%= product.price %> €</p>
+        <p>
+          <strong>Foto:</strong>
+          <br />
+          <img
+            src="/images/<%= product.photo %>"
+            alt="<%= product.name %>"
+            width="100"
+            height="100"
+          />
+        </p>
+        <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
+        <hr>
+      </li />
+      <% }); %>
+    </ul>
   </body>
 </html>

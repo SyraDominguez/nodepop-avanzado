@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const basicAuth = require('./lib/basicAuthMiddleware');
+const Products = require('./models/Products');
 
 require('../nodepop/lib/connectMongoose');
 
@@ -24,6 +25,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// website routes
+app.get('/', async (req, res, next) => {
+  try {
+    const now = new Date(); // Definir la variable now
+    const products = await Products.find();
+    res.render('index', { title: 'NodePop', products: products, now: now });  // Pasar la variable now a la vista
+  } catch (error) {
+    next(error);
+  }
+});
 
 // API routes
 app.use('/api/products', basicAuth, require('./routes/api/products'));
