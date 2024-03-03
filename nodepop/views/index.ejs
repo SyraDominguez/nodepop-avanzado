@@ -14,124 +14,56 @@
       Today, <%= now.toLocaleDateString('es-ES') %> <%=
       now.toLocaleTimeString('es-ES') %>
     </h3>
-    <hr />
 
-    <!-- Create New Product -->
-    <div class="container">
-      <div class="form-container">
-        <h2>You buy or sell? Publish your product Now</h2>
-        <form action="/api/products" method="POST">
-          <label for="name">Name:</label><br />
-          <input type="text" id="name" name="name" required /><br />
+    <!-- Create New Product Form -->
+    <fieldset>
+      <div class="container">
+        <div class="form-container">
+          <h2>Create New Product</h2>
+          <form action="/api/products" method="POST">
+            <label for="name">Name:</label><br />
+            <input type="text" id="name" name="name" required /><br />
 
-          <label for="price">Price:</label><br />
-          <input type="number" id="price" name="price" required /><br />
+            <label for="price">Price:</label><br />
+            <input type="number" id="price" name="price" required /><br />
 
-          <label for="sale">¿Buy o Sale?</label><br />
-          <select id="sale" name="sale">
-            <option value="true">Sale</option>
-            <option value="false">Buy</option></select
-          ><br />
+            <label for="sale">Buy or Sell:</label><br />
+            <select id="sale" name="sale">
+              <option value="true">Sell</option>
+              <option value="false">Buy</option></select
+            ><br />
 
-          <label for="photo">Photo:</label><br />
-          <input
-            type="file"
-            id="photo"
-            name="photo"
-            accept="image/*"
-            required
-          /><br />
+            <label for="photo">Photo:</label><br />
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              accept="image/*"
+              required
+            /><br />
 
-          <label>Tags:</label><br />
-          <input type="checkbox" id="work" name="tags" value="work" />
-          <label for="work">Work</label><br />
-          <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
-          <label for="lifestyle">Lifestyle</label><br />
-          <input type="checkbox" id="mobile" name="tags" value="mobile" />
-          <label for="mobile">Mobile</label><br />
-          <input type="checkbox" id="motor" name="tags" value="motor" />
-          <label for="motor">Motor</label><br />
+            <label>Tags:</label><br />
+            <input type="checkbox" id="work" name="tags" value="work" />
+            <label for="work">Work</label><br />
+            <input
+              type="checkbox"
+              id="lifestyle"
+              name="tags"
+              value="lifestyle"
+            />
+            <label for="lifestyle">Lifestyle</label><br />
+            <input type="checkbox" id="mobile" name="tags" value="mobile" />
+            <label for="mobile">Mobile</label><br />
+            <input type="checkbox" id="motor" name="tags" value="motor" />
+            <label for="motor">Motor</label><br />
 
-          <input type="submit" value="Crear Producto" />
-        </form>
+            <input type="submit" value="Create Product" />
+          </form>
+        </div>
       </div>
+    </fieldset>
 
-      <!-- Update Product Form -->
-      <div class="form-container">
-        <h2>Actualizar Producto</h2>
-        <form action="/api/products/:id" method="PUT">
-          <select id="productToDelete" name="productToDelete">
-            <% products.forEach(product => { %>
-            <option value="<%= product._id %>"><%= product.name %></option>
-            <% }); %></select
-          ><br />
-
-          <label for="price">Precio:</label><br />
-          <input type="number" id="price" name="price" required /><br />
-
-          <label for="sale">¿Comprar o Vender?</label><br />
-          <select id="sale" name="sale">
-            <option value="true">Venta</option>
-            <option value="false">Compra</option></select
-          ><br />
-
-          <label for="photo">Foto:</label><br />
-          <input type="file" id="photo" name="photo" accept="image/*" /><br />
-          <label>Etiquetas:</label><br />
-          <input type="checkbox" id="work" name="tags" value="work" />
-          <label for="work">Trabajo</label><br />
-          <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
-          <label for="lifestyle">Estilo de vida</label><br />
-          <input type="checkbox" id="mobile" name="tags" value="mobile" />
-          <label for="mobile">Móvil</label><br />
-          <input type="checkbox" id="motor" name="tags" value="motor" />
-          <label for="motor">Motor</label><br />
-
-          <input type="submit" value="Actualizar Producto" />
-        </form>
-      </div>
-
-      <!-- Delete Product -->
-      <div class="form-container">
-        <h2>Delete article</h2>
-        <form action="/api/products" method="DELETE">
-          <label for="productToDelete">Select a product to delete:</label><br />
-          <select id="productToDelete" name="productToDelete">
-            <% products.forEach(product => { %>
-            <option value="<%= product._id %>"><%= product.name %></option>
-            <% }); %></select
-          ><br />
-          <input type="submit" value="Borrar Producto" />
-        </form>
-      </div>
-    </div>
-    <hr />
-
-    <!-- Filter by Tags -->
-    <form action="/api/products" method="GET">
-      <label><strong>Filter by Tags:</strong></label
-      ><br />
-      <input type="checkbox" name="tag" value="work" />Work
-      <input type="checkbox" name="tag" value="lifestyle" />Lifestyle
-      <input type="checkbox" name="tag" value="mobile" />Mobile
-      <input type="checkbox" name="tag" value="motor" />Motor
-      <input type="submit" value="Filter" />
-    </form>
-    <hr />
-
-    <!-- Filter by Price -->
-    <form action="/api/products" method="GET">
-      <label><strong>Filter by Price:</strong></label
-      ><br />
-      Min: <input type="number" name="minPrice" /> Max:
-      <input type="number" name="maxPrice" />
-      <input type="submit" value="Filter" />
-    </form>
-
-    <hr />
-    <hr />
-
-    <!-- Product List -->
+    <!-- Listing All Products -->
     <h2>Product List</h2>
     <div class="product-columns">
       <ul>
@@ -162,5 +94,7 @@
         <% }); %>
       </ul>
     </div>
+
+    <hr />
   </body>
 </html>

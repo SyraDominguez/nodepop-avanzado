@@ -126,6 +126,22 @@ router.get('/tags/existing', async (req, res, next) => {
   }
 });
 
+// create a new product
+router.post('/', async (req, res, next) => {
+  try {
+    const data = req.body;
+
+    const product = new Products(data);
+
+    const newProduct = await product.save();
+
+    // res.json({ result: newProduct });
+    res.redirect('/');
+
+  } catch (error) {
+    next(error);
+  }
+});
 
 // update a product
 router.put('/:id', async (req, res, next) => {
@@ -141,27 +157,13 @@ router.put('/:id', async (req, res, next) => {
     const updateProduct = await Products.findByIdAndUpdate(id, data, { new: true });
 
     res.json({ result: updateProduct });
+    // res.redirect('/');
   } catch (error) {
     next(error);
   }
 });
 
 
-// create a new product
-router.post('/', async (req, res, next) => {
-  try {
-    const data = req.body;
-
-    const product = new Products(data);
-
-    const newProduct = await product.save();
-
-    res.json({ result: newProduct });
-
-  } catch (error) {
-    next(error);
-  }
-});
 
 // delete a product
 router.delete('/:id', async (req, res, next) => {

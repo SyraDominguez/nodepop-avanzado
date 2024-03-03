@@ -26,16 +26,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(async (req, res, next) => {
-//   try {
-//     const Products = require('./models/Products');
-//     const products = await Products.find();
-//     res.locals.products = products;
-//     next();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+app.use(async (req, res, next) => {
+  try {
+    const Products = require('./models/Products');
+    const products = await Products.find();
+    res.locals.products = products;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // API routes
 /*poner basicAuth */
