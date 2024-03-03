@@ -120,6 +120,12 @@ http://localhost:3000/api/products?sale=false
 http://localhost:3000/api/products?tags=work&tags=motor
 ```
 
+**?fields=fields1,fields2**
+
+```json
+http://localhost:3000/api/products?fields=name&fields=price
+```
+
 **?minPrice=50** & **?maxPrice=100**
 
 ```json
@@ -146,11 +152,11 @@ http://localhost:3000/api/products?skip=2&limit=4
 
 **?sort=price**
 
-**Get an individual product:**
-
 ```json
 http://localhost:3000/api/products?sort=price
 ```
+
+**Get an individual product:**
 
 `http://localhost:3000/api/products/:id` (replace :id with the ObjectId of the product)
 
