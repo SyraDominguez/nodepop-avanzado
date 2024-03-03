@@ -22,18 +22,21 @@
           <h2>Create New Product</h2>
           <form action="/api/products" method="POST">
             <label for="name">Name:</label><br />
+            <br />
             <input type="text" id="name" name="name" required /><br />
-
-            <label for="price">Price:</label><br />
+            <br />
+            <label for="price">Price:</label><br /><br />
             <input type="number" id="price" name="price" required /><br />
-
+            <br />
             <label for="sale">Buy or Sell:</label><br />
+            <br />
             <select id="sale" name="sale">
               <option value="true">Sell</option>
               <option value="false">Buy</option></select
             ><br />
-
+            <br />
             <label for="photo">Photo:</label><br />
+            <br />
             <input
               type="file"
               id="photo"
@@ -41,8 +44,9 @@
               accept="image/*"
               required
             /><br />
-
+            <br />
             <label>Tags:</label><br />
+            <br />
             <input type="checkbox" id="work" name="tags" value="work" />
             <label for="work">Work</label><br />
             <input
@@ -57,14 +61,130 @@
             <input type="checkbox" id="motor" name="tags" value="motor" />
             <label for="motor">Motor</label><br />
 
+            <br />
             <input type="submit" value="Create Product" />
           </form>
         </div>
       </div>
     </fieldset>
 
-    <!-- Listing All Products -->
-    <h2>Product List</h2>
+    <!-- Filter Form Tags-->
+    <fieldset>
+      <div class="filter-form">
+        <h2>Filter By Tags</h2>
+        <form action="/api/products" method="GET">
+          <input type="checkbox" id="work" name="tags" value="work" />
+          <label for="work">Work</label>
+          <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
+          <label for="lifestyle">Lifestyle</label>
+          <input type="checkbox" id="mobile" name="tags" value="mobile" />
+          <label for="mobile">Mobile</label>
+          <input type="checkbox" id="motor" name="tags" value="motor" />
+          <label for="motor">Motor</label>
+          <br />
+          <br />
+          <input type="submit" value="Filter" />
+        </form>
+      </div>
+    </fieldset>
+
+    <!-- Filter Form Buy or Sell-->
+    <fieldset>
+      <div class="filter-form">
+        <h2>Filter By Buy or Sell</h2>
+        <form action="/api/products" method="GET">
+          <input type="radio" id="sell" name="sale" value="true" />
+          <label for="sell">Sell</label>
+          <input type="radio" id="buy" name="sale" value="false" />
+          <label for="buy">Buy</label>
+          <br />
+          <br />
+          <input type="submit" value="Filter" />
+        </form>
+      </div>
+    </fieldset>
+
+    <!-- Sorting by Price-->
+    <fieldset>
+      <h1>Sort Products</h1>
+      <form action="/api/products" method="GET">
+        <h2>Filter Products</h2>
+
+        <label for="sort">Sort by Price:</label><br />
+        <input type="radio" id="asc" name="sortByPrice" value="asc" />
+        <label for="asc">Lowest to Highest</label><br />
+        <input type="radio" id="desc" name="sortByPrice" value="desc" />
+        <label for="desc">Highest to Lowest</label><br />
+        <br />
+        <input type="submit" value="Filter & Sort" />
+      </form>
+    </fieldset>
+
+    <!-- Filter Form Price Range-->
+    <fieldset>
+      <div class="filter-form">
+        <h2>Filter By Price Range</h2>
+        <form action="/api/products" method="GET">
+          <label for="minPrice">Min Price:</label><br />
+          <input type="number" id="minPrice" name="minPrice" /><br />
+
+          <label for="maxPrice">Max Price:</label><br />
+          <input type="number" id="maxPrice" name="maxPrice" /><br />
+
+          <br />
+          <input type="submit" value="Filter" />
+        </form>
+      </div>
+    </fieldset>
+
+    <!-- Filter Form Start With & Contain -->
+    <fieldset>
+      <div class="filter-form">
+        <h2>Filter By Start With & Contain</h2>
+        <form action="/api/products" method="GET">
+          <input
+            type="radio"
+            id="startsWith"
+            name="searchType"
+            value="startsWith"
+            checked
+          />
+          <label for="startsWith">Starts With</label><br />
+          <input
+            type="radio"
+            id="contains"
+            name="searchType"
+            value="contains"
+          />
+          <label for="contains">Contains</label><br />
+
+          <br />
+          <label for="searchTerm">Search Term:</label><br />
+          <input type="text" id="searchTerm" name="searchTerm" /><br />
+
+          <br />
+          <input type="submit" value="Filter" />
+        </form>
+      </div>
+    </fieldset>
+
+    <!-- Pagination & Limit Items -->
+    <fieldset>
+      <h1>Pagination</h1>
+      <form action="/api/products" method="GET">
+        <label for="skip">Skip:</label>
+        <input type="number" id="skip" name="skip" value="0" min="0" /><br />
+
+        <label for="limit">Limit:</label>
+        <input type="number" id="limit" name="limit" value="10" min="1" /><br />
+
+        <br />
+        <input type="submit" value="Apply" />
+      </form>
+    </fieldset>
+
+    <!-- Listing filtered products -->
+    <h2>Filtered Product List</h2>
     <div class="product-columns">
       <ul>
         <% products.forEach(product => { %>

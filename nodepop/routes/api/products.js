@@ -15,15 +15,18 @@ router.get('/', async (req, res, next) => {
     const filterByTags = req.query.tags;
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
-    const startsWithLetter = req.query.startsWithLetter;
-    const containsString = req.query.containsString;
 
     // Pagination
     const skip = req.query.skip;
     const limit = req.query.limit;
 
     // Ordenation
-    const sort = req.query.sort;
+    let sort = {};
+    if (req.query.sortByPrice === 'asc') {
+      sort.price = 1;
+    } else if (req.query.sortByPrice === 'desc') {
+      sort.price = -1;
+    }
 
     // Field selection
     const fields = req.query.fields;
@@ -65,16 +68,13 @@ router.get('/', async (req, res, next) => {
       }
       filter.price = { $lte: maxPrice };
     }
-    // filter to search starting with a letter
-    if (startsWithLetter) {
-      const regex = new RegExp(`^${startsWithLetter}`, 'i');
-      filter.name = { $regex: regex };
-    }
-
-    // filter to search by content in name
-    if (containsString) {
-      const regex = new RegExp(containsString, 'i');
-      filter.name = { $regex: regex };
+    //Filter for Start With & Contain
+    if (req.query.searchTerm) {
+      if (req.query.searchType === 'startsWith') {
+        filter.name = { $regex: `^${req.query.searchTerm}`, $options: 'i' };
+      } else if (req.query.searchType === 'contains') {
+        filter.name = { $regex: req.query.searchTerm, $options: 'i' };
+      }
     }
 
     const products = await Products.listing(filter, skip, limit, sort, fields);
@@ -84,7 +84,8 @@ router.get('/', async (req, res, next) => {
       return res.status(404).json({ error: 'No products found with the specified criteria' });
     }
 
-    res.json({ results: products });
+    // res.json({ results: products });
+    res.render('index', { title: 'Your Title', now: new Date(), products: products });
   } catch (error) {
     next(error);
   }
@@ -162,8 +163,6 @@ router.put('/:id', async (req, res, next) => {
     next(error);
   }
 });
-
-
 
 // delete a product
 router.delete('/:id', async (req, res, next) => {
