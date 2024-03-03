@@ -33,6 +33,8 @@ router.get('/', async (req, res, next) => {
 
     const filter = {};
 
+
+
     // filter by name
     if (filterByName) {
       filter.name = filterByName;
@@ -85,7 +87,14 @@ router.get('/', async (req, res, next) => {
     }
 
     // res.json({ results: products });
-    res.render('index', { title: 'NODEPOP', now: new Date(), products: products });
+    // Check if fields are specified
+    if (fields) {
+      // If fields are specified, respond with JSON
+      return res.json({ results: products });
+    } else {
+      // If fields are not specified, render the view
+      res.render('index', { title: 'NODEPOP', now: new Date(), products: products });
+    }
   } catch (error) {
     next(error);
   }
