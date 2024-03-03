@@ -56,6 +56,41 @@
         </form>
       </div>
 
+      <!-- Update Product Form -->
+      <div class="form-container">
+        <h2>Actualizar Producto</h2>
+        <form action="/api/products/:id" method="PUT">
+          <select id="productToDelete" name="productToDelete">
+            <% products.forEach(product => { %>
+            <option value="<%= product._id %>"><%= product.name %></option>
+            <% }); %></select
+          ><br />
+
+          <label for="price">Precio:</label><br />
+          <input type="number" id="price" name="price" required /><br />
+
+          <label for="sale">¿Comprar o Vender?</label><br />
+          <select id="sale" name="sale">
+            <option value="true">Venta</option>
+            <option value="false">Compra</option></select
+          ><br />
+
+          <label for="photo">Foto:</label><br />
+          <input type="file" id="photo" name="photo" accept="image/*" /><br />
+          <label>Etiquetas:</label><br />
+          <input type="checkbox" id="work" name="tags" value="work" />
+          <label for="work">Trabajo</label><br />
+          <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
+          <label for="lifestyle">Estilo de vida</label><br />
+          <input type="checkbox" id="mobile" name="tags" value="mobile" />
+          <label for="mobile">Móvil</label><br />
+          <input type="checkbox" id="motor" name="tags" value="motor" />
+          <label for="motor">Motor</label><br />
+
+          <input type="submit" value="Actualizar Producto" />
+        </form>
+      </div>
+
       <!-- Delete Product -->
       <div class="form-container">
         <h2>Delete article</h2>
