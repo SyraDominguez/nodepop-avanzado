@@ -85,7 +85,7 @@ router.get('/', async (req, res, next) => {
     }
 
     // res.json({ results: products });
-    res.render('index', { title: 'Your Title', now: new Date(), products: products });
+    res.render('index', { title: 'NODEPOP', now: new Date(), products: products });
   } catch (error) {
     next(error);
   }
@@ -126,6 +126,8 @@ router.get('/tags/existing', async (req, res, next) => {
     next(error);
   }
 });
+
+
 
 // create a new product
 router.post('/', async (req, res, next) => {

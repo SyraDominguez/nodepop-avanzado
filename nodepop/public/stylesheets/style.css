@@ -9,19 +9,43 @@ a {
 }
 
 .container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
+
+.subcontainer {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.subcontainer fieldset {
+  width: 100%;
+  margin: 5%;
+}
+
+fieldset {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 100%;
+}
+
+
 
 .form-container {
-  width: 48%;
-
+  display: flex;
+  flex-direction: column;
 }
+
+
+
+/* Styles Products */
 
 .product-columns {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
-  grid-gap: 15px;
+  grid-gap: 5px;
 }
 
 .product-columns ul {
