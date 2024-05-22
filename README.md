@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # Nodepop
 
 `Practica Backend-Node - Desarrollo Web XVI`
@@ -22,6 +20,9 @@ JavaScript: Para la lógica del lado del cliente y la interactividad en la inter
 
 Nodepop ofrece una variedad de características, incluyendo la creación, búsqueda, filtrado y gestión de productos, así como la posibilidad de actualizar y eliminar productos existentes. Además, proporciona una API robusta que permite a los desarrolladores integrar y construir sobre las funcionalidades existentes de la aplicación.
 Con su arquitectura basada en Node.js y MongoDB, Nodepop está diseñado para ser escalable y flexible, lo que lo convierte en una opción sólida para aquellos que buscan una solución de comercio electrónico entre pares fácil de usar y personalizable.
-=======
 
-# 
+# Nodepop - avanzado
+
+`Practica Backend-Node-Avanzado - Desarrollo Web XVI`
+
+En esta nueva version de la aplicación, se incluyen funcionalidades nuevas como Autenticacion (aplicada al API), Internalización de la aplicación y Subida de imagenes con tarea en background
