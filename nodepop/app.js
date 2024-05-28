@@ -1,3 +1,4 @@
+const i18n = require('i18n');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,9 +9,21 @@ const Products = require('./models/Products');
 
 require('../nodepop/lib/connectMongoose');
 
+// Configurar i18n
+i18n.configure({
+  locales: ['en', 'es'],
+  directory: path.join(__dirname, 'locales'),
+  defaultLocale: 'es',
+  queryParameter: 'lang',
+  register: global
+});
+
 
 // crear la aplicación de express
 var app = express();
+
+// Configurar i18n como middleware
+app.use(i18n.init);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

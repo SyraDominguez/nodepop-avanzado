@@ -1,256 +1,423 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
+<html lang="<%= lang %>">
 
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %>. App to buy and sell between individuals</p>
+<head>
+  <meta charset="UTF-8">
+  <title>
+    <%= title
+        %>
+  </title>
+  <link rel="stylesheet"
+        href="/stylesheets/style.css" />
+</head>
 
-    <h2>Available Products Now</h2>
-    <h3>
-      Today, <%= now.toLocaleDateString('es-ES') %> <%=
-      now.toLocaleTimeString('es-ES') %>
-    </h3>
+<body>
+  <h1>
+    <%= __('welcome')
+        %>
+  </h1>
+  <p>
+    <%= __('app_description')
+        %>
+  </p>
 
+  <div>
+    <button>
+      <a href="?lang=en">
+        <%= __('change_language')
+            %> (English)
+      </a>
+    </button>
+    <button>
+      <a href="?lang=es">
+        <%= __('change_language')
+            %> (Español)
+      </a>
+    </button>
+  </div>
 
-    <!-- Create New Product Form -->
-    <fieldset> 
-      <h2>Create a New Product</h2>
+  <h2>
+    <%= __('available_products')
+        %>
+  </h2>
+  <h3>
+    <%= __('today')
+        %>, <%= now.toLocaleDateString(lang)
+          %>
+        <%= now.toLocaleTimeString(lang)
+            %>
+  </h3>
+
+  <!-- Create New Product Form -->
+  <fieldset>
+    <h2>
+      <%= __('create_new_product')
+          %>
+    </h2>
+    <div class="form-container">
+      <form action="/api/products"
+            method="POST">
+        <label for="name">
+          <%= __('name')
+              %>:
+        </label><br />
+        <input type="text"
+               id="name"
+               name="name"
+               required /><br /><br />
+
+        <label for="price">
+          <%= __('price')
+              %>:
+        </label><br />
+        <input type="number"
+               id="price"
+               name="price"
+               required /><br /><br />
+
+        <label for="sale">
+          <%= __('buy_or_sell')
+              %>:
+        </label><br />
+        <select id="sale"
+                name="sale">
+          <option value="true">
+            <%= __('sell')
+                %>
+          </option>
+          <option value="false">
+            <%= __('buy')
+                %>
+          </option>
+        </select><br /><br />
+
+        <label for="photo">
+          <%= __('photo')
+              %>:
+        </label><br />
+        <input type="file"
+               id="photo"
+               name="photo"
+               accept="image/*"
+               required /><br /><br />
+
+        <label>
+          <%= __('tags')
+              %>:
+        </label><br />
+        <input type="checkbox"
+               id="work"
+               name="tags"
+               value="work" />
+        <label for="work">
+          <%= __('work')
+              %>
+        </label><br />
+        <input type="checkbox"
+               id="lifestyle"
+               name="tags"
+               value="lifestyle" />
+        <label for="lifestyle">
+          <%= __('lifestyle')
+              %>
+        </label><br />
+        <input type="checkbox"
+               id="mobile"
+               name="tags"
+               value="mobile" />
+        <label for="mobile">
+          <%= __('mobile')
+              %>
+        </label><br />
+        <input type="checkbox"
+               id="motor"
+               name="tags"
+               value="motor" />
+        <label for="motor">
+          <%= __('motor')
+              %>
+        </label><br /><br />
+
+        <input type="submit"
+               value="<%= __('create_product') %>" />
+      </form>
+    </div>
+  </fieldset>
+
+  <div class="container">
+    <!-- Filter Form Tags -->
+    <fieldset class="smallFieldset">
+      <h2>
+        <%= __('filter_by_tags')
+            %>
+      </h2>
       <div class="form-container">
-        <form action="/api/products" method="POST">
-            <label for="name">Name:</label><br />
-            <br />
-            <input type="text" id="name" name="name" required /><br />
-            <br />
-            <label for="price">Price:</label><br /><br />
-            <input type="number" id="price" name="price" required /><br />
-            <br />
-            <label for="sale">Buy or Sell:</label><br />
-            <br />
-            <select id="sale" name="sale">
-              <option value="true">Sell</option>
-              <option value="false">Buy</option></select
-              ><br />
-              <br />
-              <label for="photo">Photo:</label><br />
-              <br />
-              <input
-              type="file"
-              id="photo"
-              name="photo"
-              accept="image/*"
-              required
-              /><br />
-              <br />
-              <label>Tags:</label><br />
-              <br />
-              <input type="checkbox" id="work" name="tags" value="work" />
-              <label for="work">Work</label><br />
-              <input
-              type="checkbox"
-              id="lifestyle"
-              name="tags"
-              value="lifestyle"
-              />
-              <label for="lifestyle">Lifestyle</label><br />
-              <input type="checkbox" id="mobile" name="tags" value="mobile" />
-              <label for="mobile">Mobile</label><br />
-              <input type="checkbox" id="motor" name="tags" value="motor" />
-              <label for="motor">Motor</label><br />
-              
-              <br />
-              <input type="submit" value="Create Product" />
+        <form action="/api/products"
+              method="GET">
+          <input type="checkbox"
+                 id="work"
+                 name="tags"
+                 value="work" />
+          <label for="work">
+            <%= __('work')
+                %>
+          </label>
+          <input type="checkbox"
+                 id="lifestyle"
+                 name="tags"
+                 value="lifestyle" />
+          <label for="lifestyle">
+            <%= __('lifestyle')
+                %>
+          </label>
+          <input type="checkbox"
+                 id="mobile"
+                 name="tags"
+                 value="mobile" />
+          <label for="mobile">
+            <%= __('mobile')
+                %>
+          </label>
+          <input type="checkbox"
+                 id="motor"
+                 name="tags"
+                 value="motor" />
+          <label for="motor">
+            <%= __('motor')
+                %>
+          </label><br /><br />
+          <input type="submit"
+                 value="<%= __('filter') %>" />
         </form>
       </div>
-    
-
     </fieldset>
-        
-    <div class="container">
-      <!-- Filter Form Tags-->
-      <div class="subcontainer">
-        <fieldset class="smallFieldset">
-          <h2>Filter By Tags</h2>
-          <div class="form-container">
-            <form action="/api/products" method="GET">
-              <input type="checkbox" id="work" name="tags" value="work" />
-              <label for="work">Work</label>
-              <input
-                type="checkbox"
-                id="lifestyle"
-                name="tags"
-                value="lifestyle"
-              />
-              <label for="lifestyle">Lifestyle</label>
-              <input type="checkbox" id="mobile" name="tags" value="mobile" />
-              <label for="mobile">Mobile</label>
-              <input type="checkbox" id="motor" name="tags" value="motor" />
-              <label for="motor">Motor</label>
-              <br />
-              <br />
-              <input type="submit" value="Filter" />
-            </form>
-          </div>
-        </fieldset>
 
-
-        
-        <!-- Filter Form Buy or Sell-->
-        <fieldset class="smallFieldset">
-          <h2>Filter By Buy or Sell</h2>
-          <div class="form-container">
-            <h2></h2>
-            <form action="/api/products" method="GET">
-              <input type="radio" id="sell" name="sale" value="true" />
-              <label for="sell">Sell</label>
-              <br />
-              <input type="radio" id="buy" name="sale" value="false" />
-              <label for="buy">Buy</label>
-              <br />
-              <br />
-              <input type="submit" value="Filter" />
-            </form>
-          </div>
-        
-        </fieldset>
-        
-        <!-- Sorting by Price-->
-        <fieldset class="smallFieldset">
-
-          <h2>Sorting by Price</h2>
-          <div class="form-container"> 
-            <form action="/api/products" method="GET">
-              <label for="sort">Sort by Price:</label><br />
-              <input type="radio" id="asc" name="sortByPrice" value="asc" />
-              <label for="asc">Lowest to Highest</label><br />
-              <input type="radio" id="desc" name="sortByPrice" value="desc" />
-              <label for="desc">Highest to Lowest</label><br />
-              <br />
-              <input type="submit" value="Sort" />
-            </form>
-          </div>  
-        </fieldset>
-        
-        <!-- Filter Form Price Range-->
-        <fieldset class="smallFieldset">
-          <h2>Filter By Price Range</h2>
-          <div class="form-container">
-            <form action="/api/products" method="GET">
-              <label for="minPrice">Min Price:</label><br />
-              <input type="number" id="minPrice" name="minPrice" /><br />
-        
-              <label for="maxPrice">Max Price:</label><br />
-              <input type="number" id="maxPrice" name="maxPrice" /><br />
-        
-              <br />
-              <input type="submit" value="Filter" />
-            </form>
-          </div>
-          </legend>
-        </fieldset>
-        
-        <!-- Filter Form Start With & Contain -->
-        <fieldset class="smallFieldset">
-
-          <h2> Filter By Start With & Contain </h2>
-          <div class="form-container">
-            <form action="/api/products" method="GET">
-              <input
-                type="radio"
-                id="startsWith"
-                name="searchType"
-                value="startsWith"
-                checked
-              />
-              <label for="startsWith">Starts With</label><br />
-              <input
-                type="radio"
-                id="contains"
-                name="searchType"
-                value="contains"
-              />
-              <label for="contains">Contains</label><br />
-        
-              <br />
-              <label for="searchTerm">Search Term:</label><br />
-              <input type="text" id="searchTerm" name="searchTerm" /><br />
-        
-              <br />
-              <input type="submit" value="Filter" />
-            </form>
-          </div>
-        </fieldset>
-        
-        <!-- Pagination & Limit Items -->
-        <fieldset class="smallFieldset">
-          <h2>Pagination</h2>
-          <div class="form-container">
-            <form action="/api/products" method="GET">
-              <label for="skip">Skip:</label>
-              <input
-                type="number"
-                id="skip"
-                name="skip"
-                value="0"
-                min="0"
-              /><br />
-        
-              <label for="limit">Limit:</label>
-              <input
-                type="number"
-                id="limit"
-                name="limit"
-                value="10"
-                min="1"
-              /><br />
-        
-              <br />
-              <input type="submit" value="Apply" />
-            </form>
-          </div>
-        </fieldset>
+    <!-- Filter Form Buy or Sell -->
+    <fieldset class="smallFieldset">
+      <h2>
+        <%= __('filter_by_buy_or_sell')
+            %>
+      </h2>
+      <div class="form-container">
+        <form action="/api/products"
+              method="GET">
+          <input type="radio"
+                 id="sell"
+                 name="sale"
+                 value="true" />
+          <label for="sell">
+            <%= __('sell')
+                %>
+          </label><br />
+          <input type="radio"
+                 id="buy"
+                 name="sale"
+                 value="false" />
+          <label for="buy">
+            <%= __('buy')
+                %>
+          </label><br /><br />
+          <input type="submit"
+                 value="<%= __('filter') %>" />
+        </form>
       </div>
-    </div>
+    </fieldset>
 
-    
-    <!-- Listing filtered products -->
-    <h2>Filtered Product List</h2>
-    <div class="product-columns">
-      <ul>
-        <% products.forEach(product => { %>
+    <!-- Sorting by Price -->
+    <fieldset class="smallFieldset">
+      <h2>
+        <%= __('sorting_by_price')
+            %>
+      </h2>
+      <div class="form-container">
+        <form action="/api/products"
+              method="GET">
+          <label for="sort">
+            <%= __('sort_by_price')
+                %>:
+          </label><br />
+          <input type="radio"
+                 id="asc"
+                 name="sortByPrice"
+                 value="asc" />
+          <label for="asc">
+            <%= __('lowest_to_highest')
+                %>
+          </label><br />
+          <input type="radio"
+                 id="desc"
+                 name="sortByPrice"
+                 value="desc" />
+          <label for="desc">
+            <%= __('highest_to_lowest')
+                %>
+          </label><br /><br />
+          <input type="submit"
+                 value="<%= __('sort') %>" />
+        </form>
+      </div>
+    </fieldset>
+
+    <!-- Filter Form Price Range -->
+    <fieldset class="smallFieldset">
+      <h2>
+        <%= __('filter_by_price_range')
+            %>
+      </h2>
+      <div class="form-container">
+        <form action="/api/products"
+              method="GET">
+          <label for="minPrice">
+            <%= __('min_price')
+                %>:
+          </label><br />
+          <input type="number"
+                 id="minPrice"
+                 name="minPrice" /><br />
+          <label for="maxPrice">
+            <%= __('max_price')
+                %>:
+          </label><br />
+          <input type="number"
+                 id="maxPrice"
+                 name="maxPrice" /><br /><br />
+          <input type="submit"
+                 value="<%= __('filter') %>" />
+        </form>
+      </div>
+    </fieldset>
+
+    <!-- Filter Form Start With & Contain -->
+    <fieldset class="smallFieldset">
+      <h2>
+        <%= __('filter_by_start_with_contain')
+            %>
+      </h2>
+      <div class="form-container">
+        <form action="/api/products"
+              method="GET">
+          <input type="radio"
+                 id="startsWith"
+                 name="searchType"
+                 value="startsWith"
+                 checked />
+          <label for="startsWith">
+            <%= __('starts_with')
+                %>
+          </label><br />
+          <input type="radio"
+                 id="contains"
+                 name="searchType"
+                 value="contains" />
+          <label for="contains">
+            <%= __('contains')
+                %>
+          </label><br /><br />
+          <label for="searchTerm">
+            <%= __('search_term')
+                %>:
+          </label><br />
+          <input type="text"
+                 id="searchTerm"
+                 name="searchTerm" /><br /><br />
+          <input type="submit"
+                 value="<%= __('filter') %>" />
+        </form>
+      </div>
+    </fieldset>
+
+    <!-- Pagination & Limit Items -->
+    <fieldset class="smallFieldset">
+      <h2>
+        <%= __('pagination')
+            %>
+      </h2>
+      <div class="form-container">
+        <form action="/api/products"
+              method="GET">
+          <label for="skip">
+            <%= __('skip')
+                %>:
+          </label>
+          <input type="number"
+                 id="skip"
+                 name="skip"
+                 value="0"
+                 min="0" /><br />
+          <label for="limit">
+            <%= __('limit')
+                %>:
+          </label>
+          <input type="number"
+                 id="limit"
+                 name="limit"
+                 value="10"
+                 min="1" /><br /><br />
+          <input type="submit"
+                 value="<%= __('apply') %>" />
+        </form>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Listing filtered products -->
+  <h2>
+    <%= __('filtered_product_list')
+        %>
+  </h2>
+  <div class="product-columns">
+    <ul>
+      <% products.forEach(product=> { %>
         <li>
-          <h4><%= product.name %></h4>
-          <% if (product.sale) { %>
-          <p><strong>Lo Vendo</strong></p>
-          <% } else { %>
-          <p><strong>Lo Compro</strong></p>
-          <% } %>
-          <p><strong>Price:</strong> <%= product.price %> €</p>
-          <p>
-            <strong>Foto:</strong><br />
-            <img
-              src="/images/<%= product.photo %>"
-              alt="<%= product.name %>"
-              width="100"
-              height="100"
-            />
-          </p>
-          <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
+          <h4>
+            <%= product.name
+                %>
+          </h4>
+          <% if
+             (product.sale)
+             {
+             %>
+            <p><strong>
+                <%= __('selling')
+                    %>
+              </strong></p>
+            <% }
+               else
+               {
+               %>
+              <p><strong>
+                  <%= __('buying')
+                      %>
+                </strong></p>
+              <% }
+                 %>
+                <p><strong>
+                    <%= __('price')
+                        %>:
+                  </strong>
+                  <%= product.price
+                      %> €
+                </p>
+                <p><strong>
+                    <%= __('photo')
+                        %>:
+                  </strong><br />
+                  <img src="/images/<%= product.photo %>"
+                       alt="<%= product.name %>"
+                       width="100"
+                       height="100" />
+                </p>
+                <p><strong>
+                    <%= __('tags')
+                        %>:
+                  </strong>
+                  <%= product.tags.join(', ') %></p>
           <hr />
-          <button>
-            <% if (product.sale) { %> Comprar <% } else { %> Vender <% } %>
-          </button>
+          <button><% if (product.sale) { %> Comprar <% } else { %> Vender <% } %></button>
         </li>
-        <% }); %>
-      </ul>
-    </div>
+      <% }) %>
+    </ul>
+  </div>
+</body>
 
-    <hr />
-
-
-
-  </body>
 </html>
