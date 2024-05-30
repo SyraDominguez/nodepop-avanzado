@@ -1,0 +1,40 @@
+<!-- Create New Product Form -->
+<fieldset>
+  <h2><%= __('create_new_product') %></h2>
+  <div class="form-container">
+    <form action="/api/products" method="POST">
+      <label for="name"> <%= __('name') %>: </label><br />
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="price"> <%= __('price') %>: </label><br />
+      <input type="number" id="price" name="price" required /><br /><br />
+
+      <label for="sale"> <%= __('buy_or_sell') %>: </label><br />
+      <select id="sale" name="sale">
+        <option value="true"><%= __('sell') %></option>
+        <option value="false"><%= __('buy') %></option></select
+      ><br /><br />
+
+      <label for="photo"> <%= __('photo') %>: </label><br />
+      <input
+        type="file"
+        id="photo"
+        name="photo"
+        accept="image/*"
+        required
+      /><br /><br />
+
+      <label> <%= __('tags') %>: </label><br />
+      <input type="checkbox" id="work" name="tags" value="work" />
+      <label for="work"> <%= __('work') %> </label><br />
+      <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
+      <label for="lifestyle"> <%= __('lifestyle') %> </label><br />
+      <input type="checkbox" id="mobile" name="tags" value="mobile" />
+      <label for="mobile"> <%= __('mobile') %> </label><br />
+      <input type="checkbox" id="motor" name="tags" value="motor" />
+      <label for="motor"> <%= __('motor') %> </label><br /><br />
+
+      <input type="submit" value="<%= __('create_product') %>" />
+    </form>
+  </div>
+</fieldset>

@@ -1,0 +1,19 @@
+<!-- Pagination & Limit Items -->
+<fieldset class="smallFieldset">
+  <h2><%= __('pagination') %></h2>
+  <div class="form-container">
+    <form action="/api/products" method="GET">
+      <label for="skip"> <%= __('skip') %>: </label>
+      <input type="number" id="skip" name="skip" value="0" min="0" /><br />
+      <label for="limit"> <%= __('limit') %>: </label>
+      <input
+        type="number"
+        id="limit"
+        name="limit"
+        value="10"
+        min="1"
+      /><br /><br />
+      <input type="submit" value="<%= __('apply') %>" />
+    </form>
+  </div>
+</fieldset>

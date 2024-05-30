@@ -1,0 +1,14 @@
+<!-- Sorting by Price -->
+<fieldset class="smallFieldset">
+  <h2><%= __('sorting_by_price') %></h2>
+  <div class="form-container">
+    <form action="/api/products" method="GET">
+      <label for="sort"> <%= __('sort_by_price') %>: </label><br />
+      <input type="radio" id="asc" name="sortByPrice" value="asc" />
+      <label for="asc"> <%= __('lowest_to_highest') %> </label><br />
+      <input type="radio" id="desc" name="sortByPrice" value="desc" />
+      <label for="desc"> <%= __('highest_to_lowest') %> </label><br /><br />
+      <input type="submit" value="<%= __('sort') %>" />
+    </form>
+  </div>
+</fieldset>

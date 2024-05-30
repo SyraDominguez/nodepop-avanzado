@@ -1,0 +1,35 @@
+<!-- Listing filtered products -->
+<h2><%= __('filtered_product_list') %></h2>
+<div class="product-columns">
+  <ul>
+    <% products.forEach(product=> { %>
+    <li>
+      <h4><%= product.name %></h4>
+      <% if (product.sale) { %>
+      <p><strong> <%= __('selling') %> </strong></p>
+      <% } else { %>
+      <p><strong> <%= __('buying') %> </strong></p>
+      <% } %>
+      <p>
+        <strong> <%= __('price') %>: </strong>
+        <%= product.price %> €
+      </p>
+      <p>
+        <strong> <%= __('photo') %>: </strong><br />
+        <img
+          src="/images/<%= product.photo %>"
+          alt="<%= product.name %>"
+          width="100"
+          height="100"
+        />
+      </p>
+      <p>
+        <strong> <%= __('tags') %>: </strong>
+        <%= product.tags.join(', ') %>
+      </p>
+      <hr />
+      <button><%= product.sale ? __(' buy') : __('sell') %></button>
+    </li>
+    <% }) %>
+  </ul>
+</div>
