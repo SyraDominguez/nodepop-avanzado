@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
 const Products = require('../../models/Products');
+const authenticateToken = require('../../middlewares/verifyToken');
 
-
-/* GET products list */
-
-// all products
-router.get('/', async (req, res, next) => {
+// All products
+router.get('/', authenticateToken, async (req, res, next) => {
   try {
     // Filters
     const filterByName = req.query.name;
@@ -20,7 +18,7 @@ router.get('/', async (req, res, next) => {
     const skip = req.query.skip;
     const limit = req.query.limit;
 
-    // Ordenation
+    // Sorting
     let sort = {};
     if (req.query.sortByPrice === 'asc') {
       sort.price = 1;
@@ -33,14 +31,12 @@ router.get('/', async (req, res, next) => {
 
     const filter = {};
 
-
-
-    // filter by name
+    // Filter by name
     if (filterByName) {
       filter.name = filterByName;
     }
 
-    // select buy and sell
+    // Select buy and sell
     if (filterBySale !== undefined) {
       if (filterBySale !== 'true' && filterBySale !== 'false') {
         return res.status(400).json({ error: 'Invalid value for sale parameter. Please use true or false.' });
@@ -48,12 +44,12 @@ router.get('/', async (req, res, next) => {
       filter.sale = filterBySale === 'true';
     }
 
-    // filter by tags
+    // Filter by tags
     if (filterByTags) {
       filter.tags = filterByTags;
     }
 
-    // filter for price range
+    // Filter for price range
     if (minPrice && maxPrice) {
       if (!Number.isInteger(Number(minPrice)) || !Number.isInteger(Number(maxPrice))) {
         return res.status(400).json({ error: 'Price range values must be integers' });
@@ -70,7 +66,8 @@ router.get('/', async (req, res, next) => {
       }
       filter.price = { $lte: maxPrice };
     }
-    //Filter for Start With & Contain
+
+    // Filter for Start With & Contain
     if (req.query.searchTerm) {
       if (req.query.searchType === 'startsWith') {
         filter.name = { $regex: `^${req.query.searchTerm}`, $options: 'i' };
@@ -81,27 +78,20 @@ router.get('/', async (req, res, next) => {
 
     const products = await Products.listing(filter, skip, limit, sort, fields);
 
-    // product is not on the list
+    // Product is not on the list
     if (products.length === 0) {
       return res.status(404).json({ error: 'No products found with the specified criteria' });
     }
 
-    // res.json({ results: products });
-    // Check if fields are specified
-    if (fields) {
-      // If fields are specified, respond with JSON
-      return res.json({ results: products });
-    } else {
-      // If fields are not specified, render the view
-      res.render('index', { title: 'NODEPOP', now: new Date(), products: products });
-    }
+    // Respond with JSON
+    return res.json({ results: products });
   } catch (error) {
     next(error);
   }
 });
 
 // single product
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', authenticateToken, async (req, res, next) => {
   try {
     const id = req.params.id;
 
@@ -119,7 +109,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // listing tags
-router.get('/tags/existing', async (req, res, next) => {
+router.get('/tags/existing', authenticateToken, async (req, res, next) => {
   try {
     const distinctTags = await Products.distinct('tags');
 
@@ -136,10 +126,8 @@ router.get('/tags/existing', async (req, res, next) => {
   }
 });
 
-
-
 // create a new product
-router.post('/', async (req, res, next) => {
+router.post('/', authenticateToken, async (req, res, next) => {
   try {
     const data = req.body;
 
@@ -156,7 +144,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // update a product
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authenticateToken, async (req, res, next) => {
   try {
     const id = req.params.id;
     const data = req.body;
@@ -176,7 +164,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // delete a product
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authenticateToken, async (req, res, next) => {
   try {
     const id = req.params.id;
 
@@ -187,6 +175,5 @@ router.delete('/:id', async (req, res, next) => {
     next(error);
   }
 });
-
 
 module.exports = router;

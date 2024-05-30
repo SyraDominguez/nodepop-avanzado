@@ -5,7 +5,6 @@
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
-
   <body>
     <h1><%= __('welcome') %></h1>
     <p><%= __('app_description') %></p>
@@ -19,6 +18,12 @@
       </button>
     </div>
 
+    <div>
+      <button>
+        <a href="/login">Login</a>
+      </button>
+    </div>
+
     <h2><%= __('available_products') %></h2>
     <h3>
       <%= __('today') %>, <%= now.toLocaleDateString(lang) %> <%=
@@ -26,7 +31,6 @@
     </h3>
 
     <!-- Create New Product Form -->
-
     <div class="container">
       <!-- Include New Product Form -->
       <%- include('partials/new_product_form') %>
@@ -46,5 +50,11 @@
       <!-- Include Scripts -->
       <%- include('partials/scripts') %>
     </div>
+
+    <h2>Get Products</h2>
+    <button onclick="getProducts()">Get Products</button>
+    <pre id="products"></pre>
+
+    <script src="/javascripts/auth.js"></script>
   </body>
 </html>
