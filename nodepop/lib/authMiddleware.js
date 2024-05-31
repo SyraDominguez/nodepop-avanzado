@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+
 function authenticateToken(req, res, next) {
   const token = req.headers['authorization']?.split(' ')[1] || req.query.token;
 

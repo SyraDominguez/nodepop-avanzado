@@ -12,7 +12,7 @@ async function login() {
 
   const data = await response.json();
   if (response.ok) {
-    localStorage.setItem('token', data.token);
+    localStorage.setItem('jwtToken', data.token);
     showTemporaryMessage('Login successful!', 'success');
     setTimeout(() => {
       window.location.href = '/';
@@ -23,7 +23,7 @@ async function login() {
 }
 
 async function getProducts() {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('jwtToken');
   const response = await fetch('http://localhost:3000/api/products', {
     method: 'GET',
     headers: {
@@ -50,4 +50,3 @@ function showTemporaryMessage(message, type) {
     messageDiv.remove();
   }, 2000);
 }
-

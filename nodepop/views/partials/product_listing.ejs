@@ -1,21 +1,22 @@
 <!-- Listing filtered products -->
 <h2><%= __('filtered_product_list') %></h2>
 <div class="product-columns">
+  <% if (products && products.length > 0) { %>
   <ul>
-    <% products.forEach(product=> { %>
+    <% products.forEach(product => { %>
     <li>
       <h4><%= product.name %></h4>
       <% if (product.sale) { %>
-      <p><strong> <%= __('selling') %> </strong></p>
+      <p><strong><%= __('selling') %></strong></p>
       <% } else { %>
-      <p><strong> <%= __('buying') %> </strong></p>
+      <p><strong><%= __('buying') %></strong></p>
       <% } %>
       <p>
-        <strong> <%= __('price') %>: </strong>
+        <strong><%= __('price') %>:</strong>
         <%= product.price %> €
       </p>
       <p>
-        <strong> <%= __('photo') %>: </strong><br />
+        <strong><%= __('photo') %>:</strong><br />
         <img
           src="/images/<%= product.photo %>"
           alt="<%= product.name %>"
@@ -24,12 +25,15 @@
         />
       </p>
       <p>
-        <strong> <%= __('tags') %>: </strong>
+        <strong><%= __('tags') %>:</strong>
         <%= product.tags.join(', ') %>
       </p>
       <hr />
-      <button><%= product.sale ? __(' buy') : __('sell') %></button>
+      <button><%= product.sale ? __('buy') : __('sell') %></button>
     </li>
     <% }) %>
   </ul>
+  <% } else { %>
+  <p><%= __('no_products_found') %></p>
+  <% } %>
 </div>
