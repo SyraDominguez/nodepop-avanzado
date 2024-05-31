@@ -12,7 +12,7 @@ router.get('/', function (req, res, next) {
 
   // current date
   const now = new Date();
-  res.render('index', { title: 'NODEPOP', now: now, lang: 'es' });
+  res.render('index', { title: 'NODEPOP', now: now, lang: req.query.lang || 'es' });
 
 });
 

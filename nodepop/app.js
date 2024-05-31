@@ -66,22 +66,26 @@ app.use(function (req, res, next) {
 
 // Error handler
 app.use(function (err, req, res, next) {
+  // Validation errors
   if (err.array) {
     const errInfo = err.array({})[0];
-    console.log(errInfo);
-    err.message = `Not valid - ${errInfo.type} in ${errInfo.path} ${errInfo.msg}`;
+    err.message = req.__('errors.not_valid', { type: errInfo.type, path: errInfo.path, msg: errInfo.msg });
     err.status = 422;
   }
 
   res.status(err.status || 500);
 
+  // API errors
   if (req.originalUrl.startsWith('/api/')) {
-    res.json({ error: err.message });
+    res.json({ error: req.__(`errors.${err.message}`) || err.message });
     return;
   }
 
-  res.locals.message = err.message;
+  // Set locals, only providing error in development
+  res.locals.message = req.__(`errors.${err.message}`) || err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // Render the error page
   res.render('error');
 });
 

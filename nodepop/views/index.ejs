@@ -30,31 +30,11 @@
       now.toLocaleTimeString(lang) %>
     </h3>
 
-    <!-- Create New Product Form -->
     <div class="container">
-      <!-- Include New Product Form -->
-      <%- include('partials/new_product_form') %>
-
-      <!-- Include Filter Form -->
-      <%- include('partials/filter_form') %>
-
-      <!-- Include Sorting Form -->
-      <%- include('partials/sorting_form') %>
-
-      <!-- Include Pagination Form -->
-      <%- include('partials/pagination_form') %>
-
-      <!-- Include Product Listing -->
-      <%- include('partials/product_listing') %>
-
-      <!-- <h2>Get Products</h2>
-      <button onclick="getProducts()">Get Products</button>
-      <pre id="products"></pre> -->
-
-      <!-- Include Scripts -->
-      <%- include('partials/scripts') %>
+      <%- include('partials/new_product_form') %> <%-
+      include('partials/filter_form') %> <%- include('partials/sorting_form') %>
+      <%- include('partials/pagination_form') %> <%-
+      include('partials/product_listing') %> <%- include('partials/scripts') %>
     </div>
-
-    <script src="/javascripts/auth.js"></script>
   </body>
 </html>

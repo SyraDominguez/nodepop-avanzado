@@ -1,10 +1,4 @@
 <script>
-  function saveToken() {
-    const token = document.getElementById("jwtToken").value;
-    localStorage.setItem("jwtToken", token);
-    alert("Token saved!");
-  }
-
   // Obtener el token JWT del almacenamiento local
   const token = localStorage.getItem("jwtToken");
 
@@ -15,10 +9,16 @@
         event.preventDefault(); // Detener el envío del formulario
         const formData = new FormData(form);
         const params = new URLSearchParams(formData);
+        const lang = document.documentElement.lang || "en"; // Obtener el idioma actual
+        const errorMessage =
+          lang === "es"
+            ? "Token no encontrado. Por favor, inicia sesión."
+            : "Token not found. Please log in.";
+
         if (token) {
           params.append("token", token); // Añadir el token si existe
         } else {
-          alert("Token not found. Please log in.");
+          alert(errorMessage); // Mostrar mensaje de error traducido
           return;
         }
         fetch(form.action + "?" + params.toString(), {
@@ -37,7 +37,9 @@
               updateProductList(data.results); // Actualizar la lista de productos
             } else {
               showTemporaryMessage(
-                "No products found with the specified criteria",
+                lang === "es"
+                  ? "No se encontraron productos con los criterios especificados"
+                  : "No products found with the specified criteria",
                 "error"
               );
             }

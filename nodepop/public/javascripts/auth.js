@@ -13,12 +13,12 @@ async function login() {
   const data = await response.json();
   if (response.ok) {
     localStorage.setItem('jwtToken', data.token);
-    showTemporaryMessage('Login successful!', 'success');
+    showTemporaryMessage(req.__('Login successful!'), 'success');
     setTimeout(() => {
       window.location.href = '/';
     }, 2000);
   } else {
-    showTemporaryMessage('Login failed: ' + data.message, 'error');
+    showTemporaryMessage(req.__(`errors.${data.message}`) || data.message, 'error');
   }
 }
 

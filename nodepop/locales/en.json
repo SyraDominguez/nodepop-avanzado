@@ -1,4 +1,11 @@
 {
+	"errors": {
+		"invalid_token": "Invalid token",
+		"access_token_required": "Access token required",
+		"user_not_found": "User not found",
+		"invalid_credentials": "Invalid credentials",
+		"not_valid": "Not valid - {type} in {path} {msg}"
+	},
 	"welcome": "Welcome to Nodepop",
 	"app_description": "App to buy and sell between individuals",
 	"change_language": "Change Language",

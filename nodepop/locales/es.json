@@ -1,5 +1,12 @@
 {
-	"welcome": "Bienvenido a Nodepop",
+	"errors": {
+		"invalid_token": "Token inválido",
+		"access_token_required": "Se requiere un token de acceso",
+		"user_not_found": "Usuario no encontrado",
+		"invalid_credentials": "Credenciales inválidas",
+		"not_valid": "No válido - {type} en {path} {msg}"
+	},
+	"welcome": "Bienvenid@ a Nodepop",
 	"app_description": "Aplicación para comprar y vender entre particulares",
 	"change_language": "Cambiar idioma",
 	"available_products": "Productos Disponibles Ahora",
@@ -39,5 +46,5 @@
 	"filtered_product_list": "Lista de Productos Filtrados",
 	"selling": "Vendiendo",
 	"buying": "Comprando",
-	" buy": " buy"
+	"errors.Not Found": "errors.Not Found"
 }
