@@ -47,5 +47,6 @@
 	"selling": "Selling",
 	"buying": "Buying",
 	" buy": " buy",
-	"filter_by_name": "Filter by Name:"
+	"filter_by_name": "Filter by Name:",
+	"product_list": "Product List"
 }
