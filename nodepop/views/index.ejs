@@ -30,11 +30,19 @@
       now.toLocaleTimeString(lang) %>
     </h3>
 
-    <div class="container">
-      <%- include('partials/new_product_form') %> <%-
-      include('partials/filter_form') %> <%- include('partials/sorting_form') %>
-      <%- include('partials/pagination_form') %> <%-
-      include('partials/product_listing') %> <%- include('partials/scripts') %>
+    <div class="main-container">
+      <div class="new-product-form">
+        <%- include('partials/new_product_form') %>
+      </div>
+      <div class="secondary-forms">
+        <%- include('partials/filter_form') %> <%-
+        include('partials/sorting_form') %> <%-
+        include('partials/pagination_form') %>
+      </div>
+      <div class="new-product-form">
+        <%- include('partials/product_listing') %>
+      </div>
     </div>
+    <%- include('partials/scripts') %>
   </body>
 </html>

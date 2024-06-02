@@ -3,14 +3,22 @@
   <h2><%= __('filter_by_tags') %></h2>
   <div class="form-container">
     <form action="/api/products" method="GET">
-      <input type="checkbox" id="work" name="tags" value="work" />
-      <label for="work"> <%= __('work') %> </label>
-      <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
-      <label for="lifestyle"> <%= __('lifestyle') %> </label>
-      <input type="checkbox" id="mobile" name="tags" value="mobile" />
-      <label for="mobile"> <%= __('mobile') %> </label>
-      <input type="checkbox" id="motor" name="tags" value="motor" />
-      <label for="motor"> <%= __('motor') %> </label><br /><br />
+      <div class="form-group">
+        <input type="checkbox" id="work" name="tags" value="work" />
+        <label for="work"> <%= __('work') %> </label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="lifestyle" name="tags" value="lifestyle" />
+        <label for="lifestyle"> <%= __('lifestyle') %> </label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="mobile" name="tags" value="mobile" />
+        <label for="mobile"> <%= __('mobile') %> </label>
+      </div>
+      <div class="form-group">
+        <input type="checkbox" id="motor" name="tags" value="motor" />
+        <label for="motor"> <%= __('motor') %> </label>
+      </div>
       <input type="submit" value="<%= __('filter') %>" />
     </form>
   </div>
@@ -21,10 +29,14 @@
   <h2><%= __('filter_by_buy_or_sell') %></h2>
   <div class="form-container">
     <form action="/api/products" method="GET">
-      <input type="radio" id="sell" name="sale" value="true" />
-      <label for="sell"> <%= __('sell') %> </label><br />
-      <input type="radio" id="buy" name="sale" value="false" />
-      <label for="buy"> <%= __('buy') %> </label><br /><br />
+      <div class="form-group">
+        <input type="radio" id="sell" name="sale" value="true" />
+        <label for="sell"> <%= __('sell') %> </label>
+      </div>
+      <div class="form-group">
+        <input type="radio" id="buy" name="sale" value="false" />
+        <label for="buy"> <%= __('buy') %> </label>
+      </div>
       <input type="submit" value="<%= __('filter') %>" />
     </form>
   </div>
@@ -36,7 +48,8 @@
   <div class="form-container">
     <form action="/api/products" method="GET">
       <label for="minPrice"> <%= __('min_price') %>: </label><br />
-      <input type="number" id="minPrice" name="minPrice" /><br />
+      <input type="number" id="minPrice" name="minPrice" /><br /><br />
+
       <label for="maxPrice"> <%= __('max_price') %>: </label><br />
       <input type="number" id="maxPrice" name="maxPrice" /><br /><br />
       <input type="submit" value="<%= __('filter') %>" />
@@ -46,19 +59,23 @@
 
 <!-- Filter Form Start With & Contain -->
 <fieldset class="smallFieldset">
-  <h2><%= __('filter_by_start_with_contain') %></h2>
+  <h2><%= __('filter_by_name') %></h2>
   <div class="form-container">
     <form action="/api/products" method="GET">
-      <input
-        type="radio"
-        id="startsWith"
-        name="searchType"
-        value="startsWith"
-        checked
-      />
-      <label for="startsWith"> <%= __('starts_with') %> </label><br />
-      <input type="radio" id="contains" name="searchType" value="contains" />
-      <label for="contains"> <%= __('contains') %> </label><br /><br />
+      <div class="form-group">
+        <input
+          type="radio"
+          id="startsWith"
+          name="searchType"
+          value="startsWith"
+          checked
+        />
+        <label for="startsWith"> <%= __('starts_with') %> </label>
+      </div>
+      <div class="form-group">
+        <input type="radio" id="contains" name="searchType" value="contains" />
+        <label for="contains"> <%= __('contains') %> </label>
+      </div>
       <label for="searchTerm"> <%= __('search_term') %>: </label><br />
       <input type="text" id="searchTerm" name="searchTerm" /><br /><br />
       <input type="submit" value="<%= __('filter') %>" />

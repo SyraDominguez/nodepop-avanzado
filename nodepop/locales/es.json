@@ -55,5 +55,7 @@
 	"errors.invalid_token": "errors.invalid_token",
 	"errors.Unexpected field": "errors.Unexpected field",
 	"errors.access_token_required": "errors.access_token_required",
-	"create_new_product": "create_new_product"
+	"create_new_product": "create_new_product",
+	"filter_by_name": "Filtrar por Nombre:",
+	"errors./home/syradominguez/desarrollo web/Practica Backend-Node-Avanzado/nodepop-avanzado/nodepop/views/index.ejs:44\n    42|         </div>\n    43|         <div class=\"form-pair\">\n >> 44|           <%- include('partials/filter_form_price_range') %> <%-\n    45|           include('partials/filter_form_start_with') %> <%-\n    46|           include('partials/filter_form_buy_or_sell') %>\n    47|         </div>\n\nCould not find the include file \"partials/filter_form_price_range\"": "errors./home/syradominguez/desarrollo web/Practica Backend-Node-Avanzado/nodepop-avanzado/nodepop/views/index.ejs:44\n    42|         </div>\n    43|         <div class=\"form-pair\">\n >> 44|           <%- include('partials/filter_form_price_range') %> <%-\n    45|           include('partials/filter_form_start_with') %> <%-\n    46|           include('partials/filter_form_buy_or_sell') %>\n    47|         </div>\n\nCould not find the include file \"partials/filter_form_price_range\""
 }

@@ -5,42 +5,45 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: white;
+  text-decoration: none;
 }
 
-.container {
+.main-container {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 20px;
+}
+
+.secondary-forms {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-.subcontainer {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.new-product-form {
+  grid-column: 1 / span 2;
 }
 
-.subcontainer fieldset {
-  width: 100%;
-  margin: 5%;
-}
-
-fieldset {
+.fieldset {
   border: 1px solid #ccc;
   padding: 20px;
-  width: 100%;
 }
-
-
 
 .form-container {
   display: flex;
   flex-direction: column;
 }
 
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-
-/* Styles Products */
+.form-group label {
+  margin-left: 5px;
+}
 
 .product-columns {
   display: grid;
@@ -69,13 +72,87 @@ fieldset {
   transform: translateX(-50%);
   padding: 10px 20px;
   background-color: #4CAF50;
-  /* Green for success */
   color: white;
   border-radius: 5px;
   z-index: 1000;
 }
 
 .message.error {
-  background-color: #f44336;
-  /* Red for error */
+  background-color: #ec5d5d;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button a {
+  color: white;
+  text-decoration: none;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+form label {
+  margin-top: 10px;
+}
+
+form input,
+form select,
+form button {
+  margin-top: 5px;
+}
+
+fieldset h2 {
+  margin-top: 0;
+}
+
+/* Login form styles */
+.login-container {
+  width: 300px;
+  margin: auto;
+}
+
+#loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#loginForm label {
+  margin-bottom: 5px;
+}
+
+#loginForm input {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Updated button styles for forms */
+input[type="submit"],
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: white;
 }
