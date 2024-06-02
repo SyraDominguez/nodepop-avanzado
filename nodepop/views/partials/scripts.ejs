@@ -7,7 +7,7 @@
 
     forms.forEach((form) => {
       form.addEventListener("submit", async function (event) {
-        event.preventDefault(); // Evitar el envío del formulario
+        event.preventDefault();
         const formData = new FormData(form);
         const url =
           form.id === "newProductForm" ? "/api/products/anuncios" : form.action;
@@ -66,6 +66,9 @@
             .then((data) => {
               console.log(data);
               showTemporaryMessage("Product created successfully", "success");
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
             })
             .catch((error) => console.error(error));
         }
@@ -75,7 +78,7 @@
 
   function updateProductList(products) {
     const productList = document.querySelector(".product-columns");
-    productList.innerHTML = "<h2>Filtered Products List</h2>"; // Clear previous content
+    productList.innerHTML = "<h2>Filtered Products List</h2>";
     if (products.length > 0) {
       const ul = document.createElement("ul");
       products.forEach((product) => {
