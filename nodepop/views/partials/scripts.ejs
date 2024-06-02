@@ -4,47 +4,71 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     const forms = document.querySelectorAll("form");
-    forms.forEach((form) => {
-      form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Detener el envío del formulario
-        const formData = new FormData(form);
-        const params = new URLSearchParams(formData);
-        const lang = document.documentElement.lang || "en"; // Obtener el idioma actual
-        const errorMessage =
-          lang === "es"
-            ? "Token no encontrado. Por favor, inicia sesión."
-            : "Token not found. Please log in.";
 
-        if (token) {
-          params.append("token", token); // Añadir el token si existe
-        } else {
-          alert(errorMessage); // Mostrar mensaje de error traducido
+    forms.forEach((form) => {
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Evitar el envío del formulario
+        const formData = new FormData(form);
+        const url =
+          form.id === "newProductForm" ? "/api/products/anuncios" : form.action;
+        const method = form.id === "newProductForm" ? "POST" : "GET";
+
+        if (!token) {
+          const lang = document.documentElement.lang || "en";
+          const errorMessage =
+            lang === "es"
+              ? "Token no encontrado. Por favor, inicia sesión."
+              : "Token not found. Please log in.";
+          alert(errorMessage);
           return;
         }
-        fetch(form.action + "?" + params.toString(), {
-          method: "GET",
-        })
-          .then((response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              throw new Error("Network response was not ok.");
-            }
-          })
-          .then((data) => {
-            console.log(data);
-            if (data.results) {
-              updateProductList(data.results); // Actualizar la lista de productos
-            } else {
-              showTemporaryMessage(
-                lang === "es"
-                  ? "No se encontraron productos con los criterios especificados"
-                  : "No products found with the specified criteria",
-                "error"
-              );
-            }
-          })
-          .catch((error) => console.error(error));
+
+        const options = {
+          method: method,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: method === "POST" ? formData : null,
+        };
+
+        if (method === "GET") {
+          const params = new URLSearchParams(formData);
+          options.body = null;
+          options.headers["Content-Type"] = "application/x-www-form-urlencoded";
+          fetch(url + "?" + params.toString(), options)
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error("Network response was not ok.");
+              }
+            })
+            .then((data) => {
+              if (data.results) {
+                updateProductList(data.results);
+              } else {
+                showTemporaryMessage(
+                  "No products found with the specified criteria",
+                  "error"
+                );
+              }
+            })
+            .catch((error) => console.error(error));
+        } else {
+          fetch(url, options)
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error("Network response was not ok.");
+              }
+            })
+            .then((data) => {
+              console.log(data);
+              showTemporaryMessage("Product created successfully", "success");
+            })
+            .catch((error) => console.error(error));
+        }
       });
     });
   });
@@ -61,7 +85,7 @@
           <p><strong>${product.sale ? "Selling" : "Buying"}</strong></p>
           <p><strong>Price:</strong> ${product.price} €</p>
           <p><strong>Photo:</strong><br />
-            <img src="/images/${product.photo}" alt="${
+            <img src="/uploads/${product.photo}" alt="${
           product.name
         }" width="100" height="100" />
           </p>

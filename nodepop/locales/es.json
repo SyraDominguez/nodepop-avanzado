@@ -11,7 +11,7 @@
 	"change_language": "Cambiar idioma",
 	"available_products": "Productos Disponibles Ahora",
 	"today": "Hoy",
-	"create_new_product": "Crear un Nuevo Producto",
+	"create_new_ad": "Crear un Nuevo Anuncio",
 	"name": "Nombre",
 	"price": "Precio",
 	"buy_or_sell": "Comprar o Vender",
@@ -54,5 +54,6 @@
 	"errors.Cannot read properties of undefined (reading 'send')": "errors.Cannot read properties of undefined (reading 'send')",
 	"errors.invalid_token": "errors.invalid_token",
 	"errors.Unexpected field": "errors.Unexpected field",
-	"errors.access_token_required": "errors.access_token_required"
+	"errors.access_token_required": "errors.access_token_required",
+	"create_new_product": "create_new_product"
 }
