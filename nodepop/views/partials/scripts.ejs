@@ -2,6 +2,25 @@
   // Obtener el token JWT del almacenamiento local
   const token = localStorage.getItem("jwtToken");
 
+  function isTokenExpired(token) {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.exp < Date.now() / 1000;
+  }
+
+  function checkTokenAndAlert() {
+    if (!token || isTokenExpired(token)) {
+      const lang = document.documentElement.lang || "en";
+      const errorMessage =
+        lang === "es"
+          ? "Su sesión ha caducado. Por favor, inicia sesión de nuevo."
+          : "Your session has expired. Please log in again.";
+      alert(errorMessage);
+      window.location.href = "/login";
+      return false;
+    }
+    return true;
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     const forms = document.querySelectorAll("form");
 
@@ -13,13 +32,8 @@
           form.id === "newProductForm" ? "/api/products/anuncios" : form.action;
         const method = form.id === "newProductForm" ? "POST" : "GET";
 
-        if (!token) {
-          const lang = document.documentElement.lang || "en";
-          const errorMessage =
-            lang === "es"
-              ? "Token no encontrado. Por favor, inicia sesión."
-              : "Token not found. Please log in.";
-          alert(errorMessage);
+        if (!checkTokenAndAlert()) {
+          window.location.href = "/login";
           return;
         }
 
@@ -68,7 +82,7 @@
               showTemporaryMessage("Product created successfully", "success");
               setTimeout(() => {
                 location.reload();
-              }, 2000);
+              }, 1000);
             })
             .catch((error) => console.error(error));
         }
