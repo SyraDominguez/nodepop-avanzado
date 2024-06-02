@@ -1,7 +1,53 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const path = require('path');
 const Products = require('../../models/Products');
 const authenticateToken = require('../../lib/authMiddleware');
+const cote = require('cote');
+
+const requester = new cote.Requester({ name: 'thumbnail creator requester' });
+
+// Configuración de Multer para el almacenamiento de archivos
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname)); // Genera un nombre único
+  }
+});
+
+const upload = multer({ storage: storage });
+
+// Endpoint para crear anuncios con imagen
+router.post('/anuncios', authenticateToken, upload.single('photo'), async (req, res, next) => {
+  try {
+    const data = {
+      name: req.body.name,
+      sale: req.body.sale === 'true', // Asegura que sale es boolean
+      price: req.body.price,
+      tags: req.body.tags,
+      photo: req.file.filename
+    };
+
+    const product = new Products(data);
+    const newProduct = await product.save();
+
+    // Enviar un mensaje al microservicio para crear el thumbnail
+    requester.send({ type: 'create_thumbnail', path: req.file.path }, (err, response) => {
+      if (err) {
+        console.error('Error creating thumbnail:', err);
+        return res.status(500).json({ error: 'Error creating thumbnail' });
+      }
+
+      console.log('Thumbnail creation response:', response);
+      res.json({ ok: true, result: newProduct, thumbnailResponse: response });
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // All products
 router.get('/', authenticateToken, async (req, res, next) => {

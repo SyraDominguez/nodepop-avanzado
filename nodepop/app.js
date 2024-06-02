@@ -6,8 +6,21 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const i18n = require('i18n');
 const config = require('./config');
+const fs = require('fs');
 
 require('./lib/connectMongoose');
+
+// Crear las carpetas si no existen
+const uploadsDir = path.join(__dirname, 'uploads');
+const thumbnailsDir = path.join(uploadsDir, 'thumbnails');
+
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
+
+if (!fs.existsSync(thumbnailsDir)) {
+  fs.mkdirSync(thumbnailsDir);
+}
 
 // Configurar i18n
 i18n.configure({
@@ -38,6 +51,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 app.use(async (req, res, next) => {
   try {
