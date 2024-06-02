@@ -46,5 +46,8 @@
 	"filtered_product_list": "Lista de Productos Filtrados",
 	"selling": "Vendiendo",
 	"buying": "Comprando",
-	"errors.Not Found": "errors.Not Found"
+	"errors.Not Found": "errors.Not Found",
+	"errors.user_not_found": "errors.user_not_found",
+	"User Not Found 🤨": "User Not Found 🤨",
+	"User Not Found 😕": "User Not Found 😕"
 }
