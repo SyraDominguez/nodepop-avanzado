@@ -57,5 +57,6 @@
 	"errors.access_token_required": "errors.access_token_required",
 	"create_new_product": "create_new_product",
 	"filter_by_name": "Filtrar por Nombre:",
-	"product_list": "Lista de Productos"
+	"product_list": "Lista de Productos",
+	"errors.Operation `products.find()` buffering timed out after 10000ms": "errors.Operation `products.find()` buffering timed out after 10000ms"
 }
